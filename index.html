@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEDAGOS | Centrul de evaluări interactive</title>
+
+<style>
+:root {
+  --navy: #20304f;
+  --blue: #4969d8;
+  --purple: #7864c9;
+  --mint: #dff5eb;
+  --cream: #fffaf1;
+  --text: #27344d;
+  --muted: #69758b;
+  --white: #ffffff;
+  --border: #e4e8f0;
+  --green: #237a55;
+  --red: #b84343;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f5f7fc;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+header {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--navy);
+}
+
+.logo span {
+  color: var(--purple);
+}
+
+.tagline {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+nav {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+button, select, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  border-radius: 12px;
+  padding: 11px 17px;
+  font-weight: 700;
+  transition: transform .15s, opacity .15s;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 3px solid #a7b7ff;
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  background: var(--blue);
+  color: white;
+}
+
+.btn-light {
+  background: #eef1fb;
+  color: var(--navy);
+}
+
+.btn-green {
+  background: #dff5eb;
+  color: #1f694b;
+}
+
+.btn-orange {
+  background: #fff0d7;
+  color: #885b13;
+}
+
+.container {
+  width: min(1160px, 92%);
+  margin: auto;
+}
+
+.hero {
+  margin: 28px auto;
+  padding: 42px;
+  border-radius: 28px;
+  background: linear-gradient(120deg, #e7eaff, #f1eaff 60%, #e2f8ef);
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 25px;
+  align-items: center;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 2px;
+  font-size: 12px;
+  color: var(--purple);
+}
+
+h1 {
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1.15;
+  margin: 12px 0;
+  color: var(--navy);
+}
+
+.hero p {
+  color: #52617b;
+  max-width: 650px;
+}
+
+.hero-art {
+  text-align: center;
+  font-size: 90px;
+  line-height: 1.5;
+}
+
+.hero-art small {
+  display: block;
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.section {
+  margin: 35px auto;
+}
+
+.section-title {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+h2 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 25px;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 5px 0 0;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  background: white;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  margin-bottom: 20px;
+}
+
+.field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 7px;
+}
+
+select, input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dce2ee;
+  border-radius: 10px;
+  background: white;
+  color: var(--text);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 5px 18px rgba(40, 55, 90, .035);
+}
+
+.card-icon {
+  font-size: 34px;
+  background: #f0efff;
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+  border-radius: 17px;
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 19px;
+  color: var(--navy);
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.tag {
+  display: inline-block;
+  background: #f0f3fa;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 12px;
+  color: #50607b;
+  font-weight: 700;
+}
+
+.card button {
+  margin-top: auto;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  background: white;
+  padding: 30px;
+  border-radius: 18px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.panel {
+  display: none;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 28px;
+  margin: 25px auto;
+}
+
+.panel.active {
+  display: block;
+}
+
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+  align-items: start;
+  margin-bottom: 20px;
+}
+
+.question {
+  padding: 20px;
+  margin: 15px 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: #fcfcff;
+}
+
+.question h3 {
+  margin-top: 0;
+  font-size: 17px;
+}
+
+.options {
+  display: grid;
+  gap: 9px;
+}
+
+.option {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid #e1e5ef;
+  border-radius: 11px;
+  cursor: pointer;
+  background: white;
+}
+
+.option:hover {
+  background: #f4f5ff;
+}
+
+.option input {
+  width: auto;
+}
+
+.result {
+  display: none;
+  margin-top: 20px;
+  border-radius: 16px;
+  padding: 22px;
+  background: #eef8f2;
+  border: 1px solid #d1ebdc;
+}
+
+.result.visible {
+  display: block;
+}
+
+.result h3 {
+  margin-top: 0;
+}
+
+.feedback {
+  padding: 10px 0;
+  border-bottom: 1px solid #d8e9de;
+}
+
+.teacher-box {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 25px;
+}
+
+.teacher-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.teacher-box h3 {
+  margin-top: 0;
+}
+
+.teacher-note {
+  background: var(--cream);
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+footer {
+  margin-top: 50px;
+  padding: 28px 5%;
+  background: var(--navy);
+  color: white;
+  text-align: center;
+}
+
+footer p {
+  margin: 5px;
+  color: #d5dcef;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 800px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 27px;
+  }
+
+  .hero-art {
+    font-size: 60px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .filters {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  header {
+    padding: 15px 4%;
+  }
+
+  .cards,
+  .teacher-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    margin-top: 18px;
+  }
+
+  .panel {
+    padding: 18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div>
+    <div class="logo">PEDA<span>GOS</span></div>
+    <div class="tagline">ÎNVĂȚARE CU SENS · PROGRES CU ÎNCREDERE</div>
+  </div>
+
+  <nav>
+    <button class="btn-light" onclick="goTo('catalog')">Evaluări</button>
+    <button class="btn-light" onclick="goTo('teacher')">Zona cadrului didactic</button>
+  </nav>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Centrul de evaluări interactive</div>
+      <h1>Descoperă ce știi.<br>Învață ce urmează.</h1>
+      <p>
+        Un spațiu de învățare pentru elevii din ciclul primar,
+        în care exercițiile devin provocări, iar greșelile
+        sunt ocazii de a învăța.
+      </p>
+      <button class="btn-primary" onclick="goTo('catalog')">
+        Explorează evaluările →
+      </button>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      📚 ✏️ 🌱
+      <small>Fiecare copil poate progresa în ritmul său.</small>
+    </div>
+  </section>
+
+  <section class="section" id="catalog">
+    <div class="section-title">
+      <div>
+        <h2>Biblioteca de evaluări</h2>
+        <p class="subtitle">Alege clasa, disciplina și provocarea potrivită.</p>
+      </div>
+    </div>
+
+    <div class="filters">
+      <div class="field">
+        <label for="classFilter">Clasa</label>
+        <select id="classFilter" onchange="renderCards()">
+          <option value="toate">Toate clasele</option>
+          <option value="Pregătitoare">Clasa pregătitoare</option>
+          <option value="I">Clasa I</option>
+          <option value="II">Clasa a II-a</option>
+          <option value="III">Clasa a III-a</option>
+          <option value="IV">Clasa a IV-a</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="subjectFilter">Disciplina</label>
+        <select id="subjectFilter" onchange="renderCards()">
+          <option value="toate">Toate disciplinele</option>
+          <option value="Matematică">Matematică</option>
+          <option value="Limba română">Limba română</option>
+          <option value="Științe">Științe ale naturii</option>
+          <option value="Dezvoltare personală">Dezvoltare personală</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="typeFilter">Tipul activității</label>
+        <select id="typeFilter" onchange="renderCards()">
+          <option value="toate">Toate tipurile</option>
+          <option value="Evaluare">Evaluare</option>
+          <option value="Exersare">Exersare</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="cards" id="assessmentCards"></div>
+  </section>
+
+  <section class="panel" id="quizPanel">
+    <div class="panel-heading">
+      <div>
+        <div class="eyebrow">Provocarea ta</div>
+        <h2 id="quizTitle">Evaluare interactivă</h2>
+        <p class="subtitle" id="quizInfo"></p>
+      </div>
+      <button class="btn-light" onclick="closeQuiz()">← Înapoi la bibliotecă</button>
+    </div>
+
+    <div id="quizQuestions"></div>
+
+    <button class="btn-primary" id="checkButton" onclick="checkAnswers()">
+      Verifică răspunsurile
+    </button>
+
+    <div class="result" id="quizResult" aria-live="polite"></div>
+  </section>
+
+  <section class="section" id="teacher">
+    <div class="section-title">
+      <div>
+        <h2>Zona cadrului didactic</h2>
+        <p class="subtitle">Un spațiu pentru planificarea și dezvoltarea evaluărilor.</p>
+      </div>
+    </div>
+
+    <div class="teacher-box">
+      <div class="teacher-grid">
+        <div>
+          <h3>Principii PEDAGOS</h3>
+          <p>✓ Obiective de învățare clare.</p>
+          <p>✓ Sarcini adaptate vârstei și nivelului.</p>
+          <p>✓ Feedback constructiv, nu sancționator.</p>
+          <p>✓ Progresie de la exerciții accesibile la provocări.</p>
+          <p>✓ Încurajarea autonomiei și a reflecției.</p>
+        </div>
+
+        <div>
+          <h3>Planifică o evaluare nouă</h3>
+
+          <div class="field">
+            <label for="newClass">Clasa</label>
+            <select id="newClass">
+              <option>Pregătitoare</option>
+              <option>I</option>
+              <option>II</option>
+              <option>III</option>
+              <option>IV</option>
+            </select>
+          </div>
+
+          <div class="field" style="margin-top:12px">
+            <label for="newSubject">Disciplina</label>
+            <select id="newSubject">
+              <option>Matematică</option>
+              <option>Limba română</option>
+              <option>Științe</option>
+              <option>Dezvoltare personală</option>
+            </select>
+          </div>
+
+          <div class="field" style="margin-top:12px">
+            <label for="newTitle">Titlul evaluării</label>
+            <input id="newTitle" placeholder="Ex.: Numerele naturale">
+          </div>
+
+          <div class="field" style="margin-top:12px">
+            <label for="newObjective">Obiectivul de învățare</label>
+            <input id="newObjective" placeholder="Ce va putea realiza elevul?">
+          </div>
+
+          <button class="btn-primary" style="margin-top:15px"
+            onclick="draftAssessment()">
+            Generează fișa de proiectare
+          </button>
+        </div>
+      </div>
+
+      <div id="draftResult" class="teacher-note hidden" style="margin-top:20px"></div>
+
+      <div class="teacher-note" style="margin-top:20px">
+        <strong>Notă tehnică:</strong> această versiune este un prototip
+        local/publicabil. Formularul de proiectare generează o fișă
+        orientativă, dar nu salvează date într-o bază de date.
+        Rezultatele elevilor nu sunt transmise cadrului didactic.
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="logo" style="color:white">PEDA<span style="color:#c5b8ff">GOS</span></div>
+  <p>Centru de evaluări interactive pentru ciclul primar</p>
+  <p>Învățăm cu sens. Progresăm împreună.</p>
+</footer>
+
+<script>
+const assessments = [
+  {
+    id: "romane",
+    title: "Călătorie în lumea numerelor romane",
+    class: "IV",
+    subject: "Matematică",
+    type: "Evaluare",
+    icon: "🏛️",
+    description: "Recunoaște și interpretează simbolurile numerelor romane.",
+    duration: "5 minute",
+    questions: [
+      {
+        text: "Ce număr reprezintă simbolul roman XIV?",
+        options: ["12", "14", "16", "19"],
+        correct: 1,
+        explanation: "X = 10, IV = 4, deci XIV = 14."
+      },
+      {
+        text: "Cum se scrie numărul 9 cu cifre romane?",
+        options: ["VIIII", "XI", "IX", "IV"],
+        correct: 2,
+        explanation: "IX reprezintă 10 − 1, adică 9."
+      },
+      {
+        text: "Ce valoare are simbolul L?",
+        options: ["10", "50", "100", "500"],
+        correct: 1,
+        explanation: "L reprezintă numărul 50."
+      },
+      {
+        text: "Care este scrierea romană a numărului 24?",
+        options: ["XXIV", "XXVI", "XIV", "XXXIV"],
+        correct: 0,
+        explanation: "XX = 20, IV = 4, deci XXIV = 24."
+      }
+    ]
+  },
+  {
+    id: "adunari",
+    title: "Adunări și scăderi",
+    class: "II",
+    subject: "Matematică",
+    type: "Exersare",
+    icon: "🔢",
+    description: "Calculează și verifică rezultatele operațiilor.",
+    duration: "5 minute",
+    questions: [
+      {
+        text: "Cât este 25 + 14?",
+        options: ["29", "39", "41", "49"],
+        correct: 1,
+        explanation: "25 + 14 = 39."
+      },
+      {
+        text: "Cât este 47 − 20?",
+        options: ["17", "23", "27", "37"],
+        correct: 2,
+        explanation: "47 − 20 = 27."
+      },
+      {
+        text: "Cât este 16 + 8?",
+        options: ["22", "23", "24", "26"],
+        correct: 2,
+        explanation: "16 + 8 = 24."
+      }
+    ]
+  },
+  {
+    id: "citire",
+    title: "Înțelegerea unui text",
+    class: "III",
+    subject: "Limba română",
+    type: "Evaluare",
+    icon: "📖",
+    description: "Exersează identificarea informațiilor explicite din text.",
+    duration: "5 minute",
+    questions: [
+      {
+        text: "Într-un text, unde găsim de obicei titlul?",
+        options: [
+          "La începutul textului",
+          "Numai la final",
+          "În mijlocul fiecărui paragraf",
+          "Nu apare niciodată"
+        ],
+        correct: 0,
+        explanation: "Titlul este așezat, de regulă, înaintea textului."
+      },
+      {
+        text: "Ce întrebare ne ajută să aflăm locul acțiunii?",
+        options: ["Cine?", "Unde?", "Când?", "De ce?"],
+        correct: 1,
+        explanation: "Întrebarea «Unde?» identifică locul acțiunii."
+      },
+      {
+        text: "Ce ne ajută să înțelegem un cuvânt necunoscut?",
+        options: [
+          "Să ignorăm întregul text",
+          "Să citim numai ultimul cuvânt",
+          "Să observăm contextul în care apare",
+          "Să schimbăm cuvântul la întâmplare"
+        ],
+        correct: 2,
+        explanation: "Contextul poate oferi indicii despre sensul cuvântului."
+      }
+    ]
+  },
+  {
+    id: "plante",
+    title: "Descoperim lumea plantelor",
+    class: "IV",
+    subject: "Științe",
+    type: "Exersare",
+    icon: "🌱",
+    description: "Identifică nevoile plantelor și rolul părților acestora.",
+    duration: "5 minute",
+    questions: [
+      {
+        text: "De ce au nevoie majoritatea plantelor verzi pentru a se dezvolta?",
+        options: [
+          "De lumină, apă și aer",
+          "Numai de întuneric",
+          "Numai de pietre",
+          "De lipsa totală a apei"
+        ],
+        correct: 0,
+        explanation: "Lumina, apa și aerul sunt importante pentru dezvoltarea plantelor."
+      },
+      {
+        text: "Care este unul dintre rolurile rădăcinii?",
+        options: [
+          "Produce semințe în toate cazurile",
+          "Absoarbe apa și sărurile minerale din sol",
+          "Atrage insectele prin culoare",
+          "Transformă frunzele în flori"
+        ],
+        correct: 1,
+        explanation: "Rădăcina absoarbe apa și sărurile minerale și contribuie la fixarea plantei."
+      },
+      {
+        text: "În ce parte a plantei se desfășoară în principal fotosinteza?",
+        options: ["În frunze", "În rădăcini", "În semințe uscate", "În sol"],
+        correct: 0,
+        explanation: "Fotosinteza se desfășoară în principal în frunze, în celulele care conțin clorofilă."
+      }
+    ]
+  },
+  {
+    id: "emotii",
+    title: "Recunoaștem emoțiile",
+    class: "Pregătitoare",
+    subject: "Dezvoltare personală",
+    type: "Exersare",
+    icon: "😊",
+    description: "Explorează emoțiile și modalitățile de exprimare a lor.",
+    duration: "3 minute",
+    questions: [
+      {
+        text: "Cum poți proceda când te simți trist?",
+        options: [
+          "Să vorbești cu un adult de încredere",
+          "Să ascunzi mereu ce simți",
+          "Să îi rănești pe ceilalți",
+          "Să spui că emoțiile nu există"
+        ],
+        correct: 0,
+        explanation: "Un adult de încredere te poate asculta și sprijini."
+      },
+      {
+        text: "Ce poți face când simți că te înfurii?",
+        options: [
+          "Să lovești un coleg",
+          "Să respiri calm și să ceri ajutor",
+          "Să arunci obiecte",
+          "Să strigi la toată lumea"
+        ],
+        correct: 1,
+        explanation: "Respirația calmă și solicitarea ajutorului pot sprijini reglarea emoțiilor."
+      }
+    ]
+  },
+  {
+    id: "inmultire",
+    title: "Primele provocări de înmulțire",
+    class: "III",
+    subject: "Matematică",
+    type: "Exersare",
+    icon: "✖️",
+    description: "Consolidează înmulțirea prin exerciții scurte.",
+    duration: "4 minute",
+    questions: [
+      {
+        text: "Cât este 4 × 5?",
+        options: ["9", "15", "20", "25"],
+        correct: 2,
+        explanation: "4 × 5 = 20."
+      },
+      {
+        text: "Cât este 3 × 7?",
+        options: ["10", "18", "21", "24"],
+        correct: 2,
+        explanation: "3 × 7 = 21."
+      },
+      {
+        text: "Trei cutii au câte 4 creioane fiecare. Câte creioane sunt în total?",
+        options: ["7", "10", "12", "14"],
+        correct: 2,
+        explanation: "3 × 4 = 12 creioane."
+      }
+    ]
+  }
+];
+
+let currentAssessment = null;
+let submitted = false;
+
+function renderCards() {
+  const selectedClass = document.getElementById("classFilter").value;
+  const selectedSubject = document.getElementById("subjectFilter").value;
+  const selectedType = document.getElementById("typeFilter").value;
+
+  const filtered = assessments.filter(item => {
+    return (selectedClass === "toate" || item.class === selectedClass) &&
+      (selectedSubject === "toate" || item.subject === selectedSubject) &&
+      (selectedType === "toate" || item.type === selectedType);
+  });
+
+  const cards = document.getElementById("assessmentCards");
+
+  if (filtered.length === 0) {
+    cards.innerHTML =
+      '<div class="empty">Nu există momentan evaluări pentru această combinație. Încearcă alte filtre.</div>';
+    return;
+  }
+
+  cards.innerHTML = filtered.map(item => `
+    <article class="card">
+      <div class="card-icon" aria-hidden="true">${item.icon}</div>
+      <div class="tags">
+        <span class="tag">Clasa ${item.class === "Pregătitoare" ? "pregătitoare" : item.class}</span>
+        <span class="tag">${item.type}</span>
+      </div>
+      <h3>${item.title}</h3>
+      <p>${item.description}</p>
+      <p><strong>Disciplina:</strong> ${item.subject}</p>
+      <p><strong>Durată orientativă:</strong> ${item.duration}</p>
+      <button class="btn-primary" onclick="startQuiz('${item.id}')">
+        Începe activitatea →
+      </button>
+    </article>
+  `).join("");
+}
+
+function startQuiz(id) {
+  currentAssessment = assessments.find(item => item.id === id);
+  submitted = false;
+
+  document.getElementById("quizTitle").textContent = currentAssessment.title;
+  document.getElementById("quizInfo").textContent =
+    "Clasa " + (currentAssessment.class === "Pregătitoare" ? "pregătitoare" : currentAssessment.class) +
+    " · " + currentAssessment.subject +
+    " · " + currentAssessment.questions.length + " întrebări";
+
+  const questions = document.getElementById("quizQuestions");
+
+  questions.innerHTML = currentAssessment.questions.map((question, index) => `
+    <div class="question" id="question-${index}">
+      <h3>${index + 1}. ${question.text}</h3>
+      <div class="options">
+        ${question.options.map((option, optionIndex) => `
+          <label class="option">
+            <input type="radio" name="answer-${index}" value="${optionIndex}">
+            <span>${option}</span>
+          </label>
+        `).join("")}
+      </div>
+      <div class="feedback hidden" id="feedback-${index}" aria-live="polite"></div>
+    </div>
+  `).join("");
+
+  document.getElementById("quizResult").classList.remove("visible");
+  document.getElementById("quizResult").innerHTML = "";
+  document.getElementById("checkButton").classList.remove("hidden");
+  document.getElementById("quizPanel").classList.add("active");
+  document.getElementById("quizPanel").scrollIntoView({ behavior: "smooth" });
+}
+
+function checkAnswers() {
+  if (!currentAssessment || submitted) return;
+
+  let score = 0;
+  let answered = 0;
+
+  currentAssessment.questions.forEach((question, index) => {
+    const selected = document.querySelector(
+      `input[name="answer-${index}"]:checked`
+    );
+    const feedback = document.getElementById("feedback-" + index);
+
+    feedback.classList.remove("hidden");
+
+    if (selected) {
+      answered++;
+    }
+
+    if (selected && Number(selected.value) === question.correct) {
+      score++;
+      feedback.innerHTML =
+        "<strong style='color:#237a55'>Corect!</strong> " +
+        question.explanation;
+    } else {
+      const correctAnswer = question.options[question.correct];
+      feedback.innerHTML =
+        "<strong style='color:#b84343'>" +
+        (selected ? "Mai încearcă data viitoare!" : "Nu ai ales un răspuns.") +
+        "</strong> Răspuns corect: <strong>" +
+        correctAnswer + ".</strong> " + question.explanation;
+    }
+
+    document.querySelectorAll(
+      `input[name="answer-${index}"]`
+    ).forEach(input => input.disabled = true);
+  });
+
+  submitted = true;
+
+  const total = currentAssessment.questions.length;
+  const percentage = Math.round(score / total * 100);
+  let message;
+
+  if (score === total) {
+    message = "Excelent! Ai răspuns corect la toate întrebările.";
+  } else if (score / total >= 0.6) {
+    message = "Bine lucrat! Recitește explicațiile și continuă să exersezi.";
+  } else {
+    message = "Fiecare exercițiu este o ocazie de învățare. Citește explicațiile și încearcă din nou într-o activitate viitoare.";
+  }
+
+  const result = document.getElementById("quizResult");
+
+  result.innerHTML = `
+    <h3>Rezultatul tău</h3>
+    <p style="font-size:28px;font-weight:900;color:#20304f">
+      ${score} / ${total}
+    </p>
+    <p><strong>Răspunsuri corecte:</strong> ${percentage}%</p>
+    <p>${message}</p>
+    <p><strong>Ai răspuns la ${answered} din ${total} întrebări.</strong></p>
+    <button class="btn-green" onclick="closeQuiz()">Înapoi la evaluări</button>
+  `;
+
+  result.classList.add("visible");
+  document.getElementById("checkButton").classList.add("hidden");
+  result.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function closeQuiz() {
+  document.getElementById("quizPanel").classList.remove("active");
+  document.getElementById("catalog").scrollIntoView({ behavior: "smooth" });
+}
+
+function goTo(id) {
+  document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+}
+
+function draftAssessment() {
+  const className = document.getElementById("newClass").value;
+  const subject = document.getElementById("newSubject").value;
+  const title = document.getElementById("newTitle").value.trim();
+  const objective = document.getElementById("newObjective").value.trim();
+  const result = document.getElementById("draftResult");
+
+  if (!title || !objective) {
+    result.classList.remove("hidden");
+    result.innerHTML =
+      "<strong>Completează cele două câmpuri.</strong> Introdu titlul evaluării și obiectivul de învățare.";
+    return;
+  }
+
+  result.classList.remove("hidden");
+  result.innerHTML = `
+    <h3>Fișă orientativă de proiectare a evaluării</h3>
+    <p><strong>Titlu:</strong> ${escapeHTML(title)}</p>
+    <p><strong>Clasa:</strong> ${escapeHTML(className)}</p>
+    <p><strong>Disciplina:</strong> ${escapeHTML(subject)}</p>
+    <p><strong>Obiectiv de învățare:</strong> ${escapeHTML(objective)}</p>
+    <p><strong>Structură recomandată:</strong></p>
+    <ol>
+      <li>Activitate de reactualizare a cunoștințelor.</li>
+      <li>Exerciții gradate, de la accesibil la provocator.</li>
+      <li>Feedback explicativ pentru fiecare răspuns.</li>
+      <li>Autoevaluare și reflecție asupra învățării.</li>
+    </ol>
+    <p><em>Aceasta este o schiță orientativă, nu o evaluare completă aliniată automat la programa școlară.</em></p>
+    <button class="btn-light" onclick="printDraft()">Printează fișa</button>
+  `;
+}
+
+function escapeHTML(value) {
+  return value.replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  })[char]);
+}
+
+function printDraft() {
+  const content = document.getElementById("draftResult").innerHTML;
+  const printWindow = window.open("", "_blank");
+
+  if (!printWindow) {
+    alert("Browserul a blocat fereastra de imprimare. Permite ferestrele pop-up pentru această acțiune.");
+    return;
+  }
+
+  printWindow.document.write(`
+    <!DOCTYPE html>
+    <html lang="ro">
+    <head>
+      <meta charset="UTF-8">
+      <title>Fișă de proiectare PEDAGOS</title>
+      <style>
+        body { font-family: Arial, sans-serif; padding: 30px; line-height: 1.6; }
+        h3 { color: #20304f; }
+        button { display: none; }
+      </style>
+    </head>
+    <body>
+      <h1>PEDAGOS</h1>
+      ${content}
+    </body>
+    </html>
+  `);
+
+  printWindow.document.close();
+  printWindow.focus();
+  printWindow.print();
+}
+
+renderCards();
+</script>
+
+</body>
+</html>
